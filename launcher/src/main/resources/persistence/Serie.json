@@ -1,0 +1,9 @@
+{
+  "name": "Serie",
+  "className": "fr.ryu.followthing.dto.serie.Serie",
+  "formSchema": "",
+  "queries": {
+    "findByTitle": "is('title','${title}')",
+    "findById": "is('_id', ${id}"
+  }
+}
