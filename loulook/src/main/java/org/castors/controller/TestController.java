@@ -19,12 +19,12 @@ public class TestController {
 
     private ElasticSearchService elasticSearchService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @RequestMapping(method = RequestMethod.GET, value = "/", produces = "application/json")
     public String looks(@RequestParam("fields") String fields, @RequestParam("filters") String filters) {
         return "looks_home";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = "application/json")
     public String look(@PathVariable("id") Long id) {
         return id.toString();
     }
