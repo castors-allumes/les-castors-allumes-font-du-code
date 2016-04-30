@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by ballandd on 30/04/2016.
  */
-public class ViewDto {
+public class ViewDtoLol {
 
     private String id;
 

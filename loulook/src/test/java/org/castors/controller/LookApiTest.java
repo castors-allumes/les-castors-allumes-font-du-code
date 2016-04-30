@@ -2,7 +2,7 @@ package org.castors.controller;
 
 import org.castors.dto.Theme;
 import org.castors.dto.Vetement;
-import org.castors.dto.ViewDto;
+import org.castors.dto.ViewDtoLol;
 import org.castors.enumeration.LookIndex;
 import org.castors.enumeration.VetementType;
 import org.junit.Before;
@@ -70,7 +70,7 @@ public class LookApiTest {
         doReturn(themeJson).when(lookApi).searchMatch(LookIndex.THEME, id, Theme.ID_NAME);
         doReturn(vetementsJson).when(lookApi).searchMatch(LookIndex.VETEMENT, "mot1 mot2 mot3 acc_2", Vetement.KEY_WORD_1, Vetement.KEY_WORD_2, Vetement.KEY_WORD_3, Vetement.NAME);
 
-        ViewDto result = lookApi.lookById(id);
+        ViewDtoLol result = lookApi.lookById(id);
 
         verify(lookApi, times(1)).searchMatch(LookIndex.THEME, id, Theme.ID_NAME);
         verify(lookApi, times(1)).searchMatch(LookIndex.VETEMENT, "mot1 mot2 mot3 acc_2", Vetement.KEY_WORD_1, Vetement.KEY_WORD_2, Vetement.KEY_WORD_3, Vetement.NAME);

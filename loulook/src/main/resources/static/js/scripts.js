@@ -159,13 +159,13 @@ var hackaton = {
 
 	sendBonus : function(input) {
 
-		var arr = input.split(' '),
-			url = "/looks";
+		var url = "/looks/custo";
 
 			$.ajax({
 				url: url,
 				type: 'POST',
-    			data: { strings : arr },
+				contentType : 'application/json',
+    			data: { strings : input },
 				success: function(data){
 				    var id = data.ID,
 				    	theme = data.theme,

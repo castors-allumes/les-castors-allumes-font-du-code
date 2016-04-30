@@ -3,7 +3,7 @@ package org.castors.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.castors.dto.Theme;
 import org.castors.dto.Vetement;
-import org.castors.dto.ViewDto;
+import org.castors.dto.ViewDtoLol;
 import org.castors.enumeration.LookIndex;
 import org.castors.enumeration.VetementType;
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -15,11 +15,7 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -53,13 +49,8 @@ public class LookApi {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @RequestMapping(method = RequestMethod.GET, value = "/", produces = "application/json")
-    public String looks(@RequestParam("fields") String fields, @RequestParam("filters") String filters) {
-        return "looks_home";
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = "application/json")
-    public ViewDto lookById(@PathVariable("id") String id) {
+    public ViewDtoLol lookById(@PathVariable("id") String id) {
         List<String> themesJson = searchMatch(LookIndex.THEME, id, Theme.ID_NAME);
         List<Theme> themes = transformToBeanList(themesJson, Theme.class);
 
@@ -69,9 +60,9 @@ public class LookApi {
 
         Theme theme = themes.get(0);
 
-        ViewDto viewDto = new ViewDto();
-        viewDto.setId(id);
-        viewDto.setTheme(theme.getNom());
+        ViewDtoLol viewDtoLol = new ViewDtoLol();
+        viewDtoLol.setId(id);
+        viewDtoLol.setTheme(theme.getNom());
 
         StringBuilder text = new StringBuilder();
         text.append(theme.getKeyWord1()).append(" ");
@@ -88,25 +79,31 @@ public class LookApi {
         Vetement masterPieceVetement = null;
         if (theme.getMasterPiece() != null && !theme.getMasterPiece().isEmpty()) {
             masterPieceVetement = vetements.stream().filter(v -> v.getNom().equals(theme.getMasterPiece())).findFirst().get();
-            viewDto.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getNom());
+            viewDtoLol.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getNom());
         }
 
         List<String> masterPieceVetementS = new ArrayList<>();
         if(masterPieceVetement != null) {
             masterPieceVetementS.add(masterPieceVetement.getType());
         }
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.ACCESSOIRE);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.HAUT);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.MANTEAU);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.BAS);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.CHAUSSURES);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.ACCESSOIRE);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.HAUT);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.MANTEAU);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.BAS);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.CHAUSSURES);
 
-        return viewDto;
+        return viewDtoLol;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/", consumes = "application/json")
-    public ViewDto lookByKeyWorlds(List<String> themeWordsWithStopWords) {
-        List<String> themeWords = themeWordsWithStopWords.stream().filter(s -> !getStopWordsList().contains(s)).collect(Collectors.toList());
+    @RequestMapping(method = RequestMethod.POST, value = "/custo", consumes = "application/json")
+    public ViewDtoLol lookByKeyWorlds(@RequestBody  String themeWordsWithStopWords) {
+        String[] strings =themeWordsWithStopWords.split(" ");
+
+        List<String> n = new ArrayList<>();
+        for(String s : strings) {
+            n.add(s);
+        }
+        List<String> themeWords = n.stream().filter(s -> !getStopWordsList().contains(s)).collect(Collectors.toList());
 
         StringBuilder themeWord = new StringBuilder();
         Iterator<String> themeWordsI = themeWords.iterator();
@@ -120,9 +117,14 @@ public class LookApi {
         List<String> themesJson = searchMatch(LookIndex.THEME, themeWord.toString(), Theme.LABEL);
         List<Theme> themes = transformToBeanList(themesJson, Theme.class);
 
-        ViewDto viewDto = new ViewDto();
-        viewDto.setId("WOW");
-        viewDto.setTheme(themeWord.toString());
+        StringBuilder b = new StringBuilder();
+        for(String c : themeWords) {
+            b.append(c).append(" ");
+        }
+
+        ViewDtoLol viewDtoLol = new ViewDtoLol();
+        viewDtoLol.setId("WOW");
+        viewDtoLol.setTheme(b.toString());
 
         StringBuilder text = new StringBuilder();
         for(Theme theme : themes) {
@@ -147,25 +149,25 @@ public class LookApi {
             List<Vetement>  masterPieceVetements = vetements.stream().filter(v -> masterPieceVetementS.contains(v.getNom())).collect(Collectors.toList());
 
             for(Vetement masterPieceVetement : masterPieceVetements) {
-                viewDto.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getNom());
+                viewDtoLol.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getNom());
             }
         }
 
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.ACCESSOIRE);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.HAUT);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.MANTEAU);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.BAS);
-        addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.CHAUSSURES);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.ACCESSOIRE);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.HAUT);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.MANTEAU);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.BAS);
+        addOneVetementOfType(viewDtoLol, masterPieceVetementS, vetements, VetementType.CHAUSSURES);
 
-        return viewDto;
+        return viewDtoLol;
     }
 
-    protected void addOneVetementOfType(ViewDto viewDto, List<String> masterPieceVetement, List<Vetement> vetements, VetementType vetementType) {
+    protected void addOneVetementOfType(ViewDtoLol viewDtoLol, List<String> masterPieceVetement, List<Vetement> vetements, VetementType vetementType) {
         if (masterPieceVetement != null && !masterPieceVetement.contains(vetementType.getName())) {
             List<Vetement> chaussures = filter(vetements, vetementType);
             if(chaussures.size() > 0) {
                 int choice = random.nextInt(chaussures.size());
-                viewDto.getImages().put(vetementType.getName(), chaussures.get(choice).getNom());
+                viewDtoLol.getImages().put(vetementType.getName(), chaussures.get(choice).getNom());
             }
         }
     }

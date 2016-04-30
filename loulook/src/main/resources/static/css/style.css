@@ -111,6 +111,7 @@ body {
 	width: 24px;
 }
 .products .product img {
+max-height: 400px;
     -webkit-filter: drop-shadow(0 24px 14px rgba(0,0,0,0.6));
     filter: url(#drop-shadow);
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
