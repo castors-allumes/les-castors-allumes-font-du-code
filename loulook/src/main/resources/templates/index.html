@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Loulook</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+    <p>
+        un <span th:text="${truc}" /> cool !
+    </p>
+    <table>
+        <tr>
+            <th>thing</th>
+        </tr>
+        <tr th:each="thing : ${things}">
+            <td th:text="${thing}">Default Value</td>
+        </tr>
+    </table>
+
+</body>
+</html>
