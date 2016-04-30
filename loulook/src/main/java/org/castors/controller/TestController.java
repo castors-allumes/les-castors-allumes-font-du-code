@@ -1,13 +1,24 @@
 package org.castors.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.castors.rest.ElasticSearch;
 import org.castors.service.ElasticSearchService;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Map;
 
 /**
@@ -29,13 +40,29 @@ public class TestController {
         return id.toString();
     }
 
-//      Test
-//    @RequestMapping(method = RequestMethod.GET, value = "/t", produces = "application/json")
-//    public Map<String, Object> feign() {
-//        elasticSearchService = new ElasticSearchService();
-//        ElasticSearch elasticSearch = elasticSearchService.build("http://fr.lichess.org/");
-//        Map<String, Object> map = elasticSearch.lichess("toshihirofr2", "50", "1");
-//        return map;
-//    }
+    //      Test
+    @RequestMapping(method = RequestMethod.GET, value = "/vetements", produces = "application/json")
+    public String feign() {
+        elasticSearchService = new ElasticSearchService();
+        Client client = null;
+        try {
+            client = TransportClient.builder().build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
+            SearchResponse sr = client.prepareSearch("vetements").setTypes("external").setSearchType(SearchType.DEFAULT)
+                    .setQuery(QueryBuilders.matchQuery("Couleur", "Vert")).execute().actionGet();
+            SearchHit[] results = sr.getHits().getHits();
+            for (SearchHit hit : results) {
+                String sourceAsString = hit.getSourceAsString();
+                if (sourceAsString != null) {
+                    return sourceAsString;
+                }
+            }
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } finally {
+            client.close();
+        }
+        return "";
+    }
 
 }

@@ -11,7 +11,7 @@ public interface ElasticSearch {
     String products(@Param("id_categorie") String idCategorie);
 
     //Test
-//    @RequestLine("GET /api/user/{user}/games?nb={nb}&page={page}")
-//    Map<String, Object> lichess(@Param("user") String user, @Param("nb") String nb, @Param("page") String page);
+    @RequestLine("POST vetements/external/_search?pretty'")
+    String lichess();
 
 }
