@@ -1,0 +1,34 @@
+[2016-04-29 20:06:55,285][INFO ][node                     ] [Scott Summers] version[2.3.2], pid[5404], build[b9e4a6a/2016-04-21T16:03:47Z]
+[2016-04-29 20:06:55,286][INFO ][node                     ] [Scott Summers] initializing ...
+[2016-04-29 20:06:56,001][INFO ][plugins                  ] [Scott Summers] modules [lang-groovy, reindex, lang-expression], plugins [], sites []
+[2016-04-29 20:06:56,032][INFO ][env                      ] [Scott Summers] using [1] data paths, mounts [[(c:)]], net usable_space [113.5gb], net total_space [232.7gb], spins? [unknown], types [NTFS]
+[2016-04-29 20:06:56,033][INFO ][env                      ] [Scott Summers] heap size [989.8mb], compressed ordinary object pointers [true]
+[2016-04-29 20:06:57,994][INFO ][node                     ] [Scott Summers] initialized
+[2016-04-29 20:06:57,995][INFO ][node                     ] [Scott Summers] starting ...
+[2016-04-29 20:06:58,157][INFO ][transport                ] [Scott Summers] publish_address {127.0.0.1:9300}, bound_addresses {[::1]:9300}, {127.0.0.1:9300}
+[2016-04-29 20:06:58,164][INFO ][discovery                ] [Scott Summers] elasticsearch/2CBonJPISFuZJqsOo8CrzQ
+[2016-04-29 20:07:02,230][INFO ][cluster.service          ] [Scott Summers] new_master {Scott Summers}{2CBonJPISFuZJqsOo8CrzQ}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2016-04-29 20:07:02,292][INFO ][gateway                  ] [Scott Summers] recovered [0] indices into cluster_state
+[2016-04-29 20:07:02,333][INFO ][http                     ] [Scott Summers] publish_address {127.0.0.1:9200}, bound_addresses {[::1]:9200}, {127.0.0.1:9200}
+[2016-04-29 20:07:02,334][INFO ][node                     ] [Scott Summers] started
+[2016-04-29 20:15:11,677][INFO ][cluster.metadata         ] [Scott Summers] [customer] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2016-04-29 20:15:11,913][INFO ][cluster.routing.allocation] [Scott Summers] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[customer][4]] ...]).
+[2016-04-29 20:25:46,446][INFO ][cluster.metadata         ] [Scott Summers] [customer] create_mapping [external]
+[2016-04-29 21:34:10,038][INFO ][cluster.metadata         ] [Scott Summers] [customer] update_mapping [external]
+[2016-04-29 22:10:17,353][DEBUG][action.admin.indices.create] [Scott Summers] [Vetements] failed to create
+[Vetements] InvalidIndexNameException[Invalid index name [Vetements], must be lowercase]
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.validateIndexName(MetaDataCreateIndexService.java:153)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.validate(MetaDataCreateIndexService.java:473)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.access$100(MetaDataCreateIndexService.java:97)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService$1.execute(MetaDataCreateIndexService.java:192)
+	at org.elasticsearch.cluster.ClusterStateUpdateTask.execute(ClusterStateUpdateTask.java:45)
+	at org.elasticsearch.cluster.service.InternalClusterService.runTasksForExecutor(InternalClusterService.java:468)
+	at org.elasticsearch.cluster.service.InternalClusterService$UpdateTask.run(InternalClusterService.java:772)
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:231)
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:194)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[2016-04-29 22:10:31,803][INFO ][cluster.metadata         ] [Scott Summers] [vetements] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings [external]
+[2016-04-29 22:10:31,896][INFO ][cluster.routing.allocation] [Scott Summers] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[vetements][4]] ...]).
+[2016-04-29 22:10:31,912][INFO ][cluster.metadata         ] [Scott Summers] [vetements] update_mapping [external]
