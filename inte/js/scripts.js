@@ -34,7 +34,8 @@ var hackaton = {
 					opacity: 0, ease:Expo.easeInOutQuint
 				}, 'hp');
 
-				var random = Math.floor(Math.random() * 100) + 1;
+			var random = Math.floor(Math.random() * 100) + 1;
+				random = (random == 64) ? 65 : random;
 
 				hackaton.ajaxCall( random );
 
@@ -99,23 +100,7 @@ var hackaton = {
 			.to( toloadProducts, 0.5, {
 				rotation: 0, delay: -0.1, ease:Expo.easeInOutQuint, onComplete: function() {
 					$('.products').removeClass('toload').addClass('origin');
-					$('.global').append('<div class="products toload">\
-						<div class="product accessoire">\
-							<img src="">\
-						</div>\
-						<div class="product veste">\
-							<img src="">\
-						</div>\
-						<div class="product chemise">\
-							<img src="">\
-						</div>\
-						<div class="product pantalon">\
-							<img src="">\
-						</div>\
-						<div class="product chaussure">\
-							<img src="">\
-						</div>\
-					</div>');
+					$('.global').append('<div class="products toload"></div>');
 					$('.products').removeAttr('style');
 					$('.product').removeAttr('style');
 				}
@@ -137,11 +122,27 @@ var hackaton = {
 			    	pantalon = "images/product/BAS/" + data.images.bas,
 			    	chaussure = "images/product/CHAUSSURES/" + data.images.chaussures;
 
-			    	$('.toload .product.accessoire img').attr('src', accessoire);
-			    	$('.toload .product.veste img').attr('src', veste);
-			    	$('.toload .product.chemise img').attr('src', chemise);
-			    	$('.toload .product.pantalon img').attr('src', pantalon);
-			    	$('.toload .product.chaussure img').attr('src', chaussure);
+					if ( data.images.chaussures ) {
+						$('.products.toload').prepend('<div class="product chaussure"><img src=""></div>');
+			    		$('.toload .product.chaussure img').attr('src', chaussure);
+					}
+					if ( data.images.bas ) {
+						$('.products.toload').prepend('<div class="product pantalon"><img src=""></div>');
+			    		$('.toload .product.pantalon img').attr('src', pantalon);
+					}
+					if ( data.images.haut ) {
+						$('.products.toload').prepend('<div class="product chemise"><img src=""></div>');
+			    		$('.toload .product.chemise img').attr('src', chemise);
+					}
+					if ( data.images.manteau ) {
+						$('.products.toload').prepend('<div class="product veste"><img src=""></div>');
+			    		$('.toload .product.veste img').attr('src', veste);
+					}
+					if ( data.images.accessoire ) {
+						$('.products.toload').prepend('<div class="product accessoire"><img src=""></div>');
+			    		$('.toload .product.accessoire img').attr('src', accessoire);
+					}
+
 			    	$('.theme').text(theme);
 
 			    	if ( $('.hp').length > 0 ) {
@@ -172,11 +173,27 @@ var hackaton = {
 				    	pantalon = "images/product/BAS/" + data.images.bas,
 				    	chaussure = "images/product/CHAUSSURES/" + data.images.chaussures;
 
-				    	$('.toload .product.accessoire img').attr('src', accessoire);
-				    	$('.toload .product.veste img').attr('src', veste);
-				    	$('.toload .product.chemise img').attr('src', chemise);
-				    	$('.toload .product.pantalon img').attr('src', pantalon);
-				    	$('.toload .product.chaussure img').attr('src', chaussure);
+						if ( data.images.chaussures ) {
+							$('.products.toload').prepend('<div class="product chaussure"><img src=""></div>');
+				    		$('.toload .product.chaussure img').attr('src', chaussure);
+						}
+						if ( data.images.bas ) {
+							$('.products.toload').prepend('<div class="product pantalon"><img src=""></div>');
+				    		$('.toload .product.pantalon img').attr('src', pantalon);
+						}
+						if ( data.images.haut ) {
+							$('.products.toload').prepend('<div class="product chemise"><img src=""></div>');
+				    		$('.toload .product.chemise img').attr('src', chemise);
+						}
+						if ( data.images.manteau ) {
+							$('.products.toload').prepend('<div class="product veste"><img src=""></div>');
+				    		$('.toload .product.veste img').attr('src', veste);
+						}
+						if ( data.images.accessoire ) {
+							$('.products.toload').prepend('<div class="product accessoire"><img src=""></div>');
+				    		$('.toload .product.accessoire img').attr('src', accessoire);
+						}
+
 				    	$('.theme').text(theme);
 
 				    	hackaton.animOldProducts();
