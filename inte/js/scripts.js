@@ -31,7 +31,9 @@ var hackaton = {
 					}
 				}, 'hp')
 				.to( overlay, 1.5, {
-					opacity: 0, ease:Expo.easeInOutQuint
+					opacity: 0, ease:Expo.easeInOutQuint, onComplete: function() {
+						overlay.remove();
+					}
 				}, 'hp');
 
 			var random = Math.floor(Math.random() * 100) + 1;
