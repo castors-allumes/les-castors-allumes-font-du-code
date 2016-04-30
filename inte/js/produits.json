@@ -1,0 +1,11 @@
+{
+    "ID" : 1,
+	"theme" : "Célébration à la mairie des noces de diamant de vos grands-parents",
+    "images" : {
+        "accessoire" : "bob_fleuri.png",
+        "manteau" : "blouson_beige.png",
+        "haut" : "chemise_blanche.png",
+        "bas" : "bermuda_gris.png",
+        "chaussures" : "basket_blanche.png"
+    }
+}
