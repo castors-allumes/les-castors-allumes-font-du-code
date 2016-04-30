@@ -1,13 +1,11 @@
 package org.castors.dto;
 
-import java.util.List;
-
 /**
  * Created by ballandd on 29/04/2016.
  */
 public class Vetement {
 
-    public static final String NAME = "name";
+    public static final String NAME = "nom";
 
     public static final String KEY_WORD_1 = "keyWord1";
 
@@ -16,7 +14,7 @@ public class Vetement {
     public static final String KEY_WORD_3 = "keyWord3";
 
     //image
-    private String name;
+    private String nom;
 
     //enum ?
     private String type;
@@ -28,12 +26,12 @@ public class Vetement {
 
     private String keyWord3;
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getType() {

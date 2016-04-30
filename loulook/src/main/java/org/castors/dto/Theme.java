@@ -1,6 +1,6 @@
 package org.castors.dto;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by ballandd on 30/04/2016.
@@ -9,13 +9,14 @@ public class Theme {
 
     public static final String ID_NAME = "id";
 
-    public static final String LABEL = "label";
+    public static final String LABEL = "Nom";
 
     //
     private int id;
 
     //nom theme
-    private String label;
+    @JsonProperty("Nom")
+    private String nom;
 
     //1-3 mot cle
     private String keyWord1;
@@ -35,12 +36,12 @@ public class Theme {
         this.id = id;
     }
 
-    public String getLabel() {
-        return label;
+    public String getNom() {
+        return nom;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
 

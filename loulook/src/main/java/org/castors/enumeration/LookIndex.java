@@ -5,8 +5,8 @@ package org.castors.enumeration;
  */
 public enum LookIndex {
 
-    THEME("theme"),
-    VETEMENT("vetement");
+    THEME("themes"),
+    VETEMENT("vetements");
 
     private String name;
 

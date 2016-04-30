@@ -71,7 +71,7 @@ public class LookApi {
 
         ViewDto viewDto = new ViewDto();
         viewDto.setId(id);
-        viewDto.setTheme(theme.getLabel());
+        viewDto.setTheme(theme.getNom());
 
         StringBuilder text = new StringBuilder();
         text.append(theme.getKeyWord1()).append(" ");
@@ -87,12 +87,14 @@ public class LookApi {
 
         Vetement masterPieceVetement = null;
         if (theme.getMasterPiece() != null && !theme.getMasterPiece().isEmpty()) {
-            masterPieceVetement = vetements.stream().filter(v -> v.getName().equals(theme.getMasterPiece())).findFirst().get();
-            viewDto.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getName());
+            masterPieceVetement = vetements.stream().filter(v -> v.getNom().equals(theme.getMasterPiece())).findFirst().get();
+            viewDto.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getNom());
         }
 
         List<String> masterPieceVetementS = new ArrayList<>();
-        masterPieceVetementS.add(masterPieceVetement.getType());
+        if(masterPieceVetement != null) {
+            masterPieceVetementS.add(masterPieceVetement.getType());
+        }
         addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.ACCESSOIRE);
         addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.HAUT);
         addOneVetementOfType(viewDto, masterPieceVetementS, vetements, VetementType.MANTEAU);
@@ -142,10 +144,10 @@ public class LookApi {
 
         List<String> masterPieceVetementS = themes.stream().map(t -> t.getMasterPiece()).collect(Collectors.toList());
         if (!masterPieceVetementS.isEmpty()) {
-            List<Vetement>  masterPieceVetements = vetements.stream().filter(v -> masterPieceVetementS.contains(v.getName())).collect(Collectors.toList());
+            List<Vetement>  masterPieceVetements = vetements.stream().filter(v -> masterPieceVetementS.contains(v.getNom())).collect(Collectors.toList());
 
             for(Vetement masterPieceVetement : masterPieceVetements) {
-                viewDto.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getName());
+                viewDto.getImages().put(masterPieceVetement.getType(), masterPieceVetement.getNom());
             }
         }
 
@@ -163,7 +165,7 @@ public class LookApi {
             List<Vetement> chaussures = filter(vetements, vetementType);
             if(chaussures.size() > 0) {
                 int choice = random.nextInt(chaussures.size());
-                viewDto.getImages().put(vetementType.getName(), chaussures.get(choice).getName());
+                viewDto.getImages().put(vetementType.getName(), chaussures.get(choice).getNom());
             }
         }
     }

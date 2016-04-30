@@ -53,7 +53,7 @@ public class LookApiTest {
 
     @Test
     public void testSearchMatch() throws Exception {
-        String id = "1";
+        String id = "41";
 
         List<String> themeJson = new ArrayList<>();
         themeJson.add("{\"id\":\"1\", \"label\":\"les casters s'habille\", \"keyWord1\":\"mot1\",\"keyWord2\":\"mot2\",\"keyWord3\":\"mot3\", \"masterPiece\":\"acc_2\"}");
