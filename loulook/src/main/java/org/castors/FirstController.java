@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.boot.SpringApplication.run;
 
@@ -17,9 +18,13 @@ import static org.springframework.boot.SpringApplication.run;
 public class FirstController {
 
     @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
+    public ModelAndView home() {
+
+        ModelAndView mav = new ModelAndView("index");
+
+        return mav;
+
+//        return "templates/index";
     }
 
     public static void main(String[] args) throws Exception {
