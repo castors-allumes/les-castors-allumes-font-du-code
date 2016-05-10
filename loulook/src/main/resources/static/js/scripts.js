@@ -53,10 +53,12 @@ var hackaton = {
 			select.on('change', function() {
 				var idTheme = $(this).val();
 
+					select.add(goBtn).attr('disabled', 'disabled');
 					hackaton.ajaxCall( idTheme );
 			});
 
 			goBtn.on('click', function() {
+				select.add(goBtn).attr('disabled', 'disabled');
 				hackaton.sendBonus( $('.input input').val() );
 			});
 			
@@ -105,6 +107,8 @@ var hackaton = {
 					$('.global').append('<div class="products toload"></div>');
 					$('.products').removeAttr('style');
 					$('.product').removeAttr('style');
+
+					$('.buttons select').add($('.input .ok')).removeAttr('disabled');
 				}
 			});
 
